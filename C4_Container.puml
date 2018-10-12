@@ -106,7 +106,7 @@ endlegend
 
 ' Boundaries
 ' ##################################
-!define Enterprise_Boundary(e_alias, e_label) rectangle "==e_label [Enterprise]" as e_alias
+!define Enterprise_Boundary(e_alias, e_label) rectangle "==e_label [Enterprise]" <<boundary>> as e_alias
 !define System_Boundary(e_alias, e_label) rectangle "==e_label [Enterprise]" <<boundary>> as e_alias
 !define Container_Boundary(e_alias, e_label) package "==e_label [Container]" <<boundary>> as e_alias
 
