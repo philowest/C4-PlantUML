@@ -3,8 +3,9 @@
 
 !define PERSON_BG_COLOR #08427B
 !define CONTAINER_BG_COLOR #438DD5
-!define SYSTEM_BG_COLOR #999999
+!define SYSTEM_BG_COLOR #1168BD
 !define ELEMENT_FONT_COLOR #FFFFFF
+!define EXTERNAL_SYSTEM_BG_COLOR #999999
 
 ' Styling
 ' ##################################
@@ -15,6 +16,8 @@ skinparam defaultTextAlignment center
 
 skinparam wrapWidth 200
 skinparam maxMessageSize 150
+
+skinparam shadowing false
 
 skinparam rectangle {
     StereotypeFontSize 12
@@ -44,13 +47,22 @@ skinparam rectangle<<system>> {
     StereotypeFontColor ELEMENT_FONT_COLOR
     FontColor ELEMENT_FONT_COLOR
     BackgroundColor SYSTEM_BG_COLOR
+    BorderColor #3C7FC0
+}
+
+skinparam rectangle<<external_system>> {
+    StereotypeFontColor ELEMENT_FONT_COLOR
+    FontColor ELEMENT_FONT_COLOR
+    BackgroundColor EXTERNAL_SYSTEM_BG_COLOR
     BorderColor #8A8A8A
 }
 
-skinparam package<<boundary>> {
+skinparam rectangle<<boundary>> {
     StereotypeFontSize 0
     FontColor #999999
-    BorderColor #cccccc
+    ' BorderColor #cccccc
+    RoundCorner 25
+    BorderStyle dotted
 }
 
 ' Layout
@@ -69,7 +81,8 @@ legend right
 |=              |= Type |
 |<PERSON_BG_COLOR>      | person |
 |<CONTAINER_BG_COLOR>   | container |
-|<SYSTEM_BG_COLOR>      | external system |
+|<SYSTEM_BG_COLOR>      | system |
+|<EXTERNAL_SYSTEM_BG_COLOR>      | external system |
 endlegend
 !enddefinelong
 
@@ -87,6 +100,15 @@ endlegend
 
 !define System(e_alias, e_label) rectangle "==e_label" <<system>> as e_alias
 !define System(e_alias, e_label, e_descr) rectangle "==e_label\n\n e_descr" <<system>> as e_alias
+
+!define System_Ext(e_alias, e_label) rectangle "==e_label" <<external system>> as e_alias
+!define System_Ext(e_alias, e_label, e_descr) rectangle "==e_label\n\n e_descr" <<external system>> as e_alias
+
+' Boundaries
+' ##################################
+!define Enterprise_Boundary(e_alias, e_label) rectangle "==e_label [Enterprise]" as e_alias
+!define System_Boundary(e_alias, e_label) rectangle "==e_label [Enterprise]" <<boundary>> as e_alias
+!define Container_Boundary(e_alias, e_label) package "==e_label [Container]" <<boundary>> as e_alias
 
 ' Relationship
 ' ##################################
